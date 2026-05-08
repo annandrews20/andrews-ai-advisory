@@ -1,171 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrews AI Advisory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrews AI Advisory — AI Product Advisory for EdTech Founders</title>
+<meta name="description" content="AI product advisory for early-stage EdTech founders. Identify the right use cases, validate with real learners and educators, and ship AI that drives retention and outcomes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2;
+    --bg-alt: #EAE2D2;
+    --ink: #1A1410;
+    --ink-soft: #4A3F35;
+    --ink-mute: #7A6E60;
+    --rule: #C9BEA8;
+    --accent: #8B2A1F;
+    --accent-soft: #B8654A;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(26, 20, 16, 0.022) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Header */
+  .site-header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: rgba(244, 238, 226, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .brand {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .site-nav ul { list-style: none; display: flex; gap: 2.2rem; }
+  .site-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .site-nav a:hover { color: var(--accent); }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary { background: var(--ink); color: var(--bg); border: 1px solid var(--ink); }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* Hero */
+  .hero-section { padding: 7rem 0 5rem; }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 500;
+  }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 7vw, 6.2rem);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 2.5rem;
+    font-variation-settings: "opsz" 144;
+  }
+  .hero-headline em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    max-width: 58ch;
+  }
+  .hero-meta-item {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+  }
+
+  /* Sections */
+  .section { padding: 6rem 0; border-top: 1px solid var(--rule); }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .section-number {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--ink-mute);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+  .section h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    position: sticky;
+    top: 6rem;
+  }
+  .section h2 em { font-style: italic; color: var(--accent); }
+
+  .content-block p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    max-width: 62ch;
+  }
+  .content-block p strong { color: var(--ink); font-weight: 500; }
+
+  .numbered-list, .bullet-list {
+    list-style: none;
+    margin: 2rem 0;
+    max-width: 62ch;
+  }
+  .numbered-list li, .bullet-list li {
+    position: relative;
+    padding: 1.15rem 0 1.15rem 3.5rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .numbered-list li:first-child, .bullet-list li:first-child { border-top: 1px solid var(--rule); }
+
+  .numbered-list { counter-reset: item; }
+  .numbered-list li::before {
+    counter-increment: item;
+    content: '0' counter(item);
+    position: absolute;
+    left: 0;
+    top: 1.15rem;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  .bullet-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  blockquote {
+    margin: 3rem 0 1rem;
+    padding: 1.8rem 0 1.8rem 2.5rem;
+    border-left: 2px solid var(--accent);
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    font-weight: 300;
+  }
+  blockquote::before {
+    content: 'CASE';
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 7rem 0;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(184, 101, 74, 0.18), transparent 55%);
+    pointer-events: none;
+  }
+  .cta-section .container { position: relative; z-index: 1; }
+  .cta-section h2 {
+    color: var(--bg);
+    margin-bottom: 1.5rem;
+    max-width: 18ch;
+    position: static;
+  }
+  .cta-section h2 em { color: var(--accent-soft); }
+  .cta-section p {
+    color: rgba(244, 238, 226, 0.75);
+    max-width: 56ch;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    line-height: 1.65;
+  }
+  .btn-light {
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--bg);
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+  }
+  .btn-light:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+    color: var(--bg);
+  }
+  .cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .btn-link {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: rgba(244, 238, 226, 0.7);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(244, 238, 226, 0.3);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-link:hover {
+    color: var(--accent-soft);
+    border-color: var(--accent-soft);
+  }
+
+  /* Footer */
+  footer {
+    padding: 2.5rem 0;
+    background: var(--ink);
+    color: rgba(244, 238, 226, 0.5);
+    text-align: center;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    .container { padding: 0 1.4rem; }
+    .site-nav { display: none; }
+    .section { padding: 4rem 0; }
+    .section-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .section h2 { position: static; }
+    .hero-section { padding: 4rem 0 3rem; }
+    .hero-meta { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .header-inner { gap: 1rem; }
+    .brand { font-size: 1.1rem; }
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: reveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .reveal-1 { animation-delay: 0.1s; }
+  .reveal-2 { animation-delay: 0.25s; }
+  .reveal-3 { animation-delay: 0.42s; }
+  .reveal-4 { animation-delay: 0.58s; }
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
 <body>
 
 <header class="site-header">
-    <div class="container header-inner">
-        <a href="#" class="brand">Andrews AI Advisory</a>
-        <nav class="site-nav">
-            <ul class="nav-list">
-                <li><a href="#what-i-do">What I do</a></li>
-                <li><a href="#who-i-help">Who I help</a></li>
-                <li><a href="#when-to-call-me">When to call me</a></li>
-                <li><a href="#how-i-work">How I work</a></li>
-                <li><a href="#who-i-am">Who I am</a></li>
-            </ul>
-        </nav>
-        <a href="mailto:ann.andrews@gmail.com" class="btn btn-primary">Email me</a>
-    </div>
+  <div class="container header-inner">
+    <a href="#" class="brand">Andrews AI Advisory</a>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="#what">What I do</a></li>
+        <li><a href="#who">Who I help</a></li>
+        <li><a href="#when">When to call</a></li>
+        <li><a href="#how">How I work</a></li>
+        <li><a href="#me">About</a></li>
+      </ul>
+    </nav>
+    <a href="https://calendly.com/ann-andrews" target="_blank" rel="noopener" class="btn btn-primary">Book 15 min</a>
+  </div>
 </header>
 
 <main>
-    <!-- Hero -->
-    <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-headline">Turn AI potential into real product-market fit</h1>
-            <p class="hero-subtitle">
-                <strong>AI product advisory for startups: identify high-leverage use cases, validate demand, and scale your MVP with discipline.</strong>
-            </p>
-        </div>
-    </section>
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-eyebrow reveal reveal-1">For early-stage EdTech founders</div>
+      <h1 class="hero-headline reveal reveal-2">AI that <em>actually teaches</em>—not just demos.</h1>
+      <p class="hero-subtitle reveal reveal-3">Product advisory for EdTech startups building with AI. I help founders pick the right use cases, validate with real learners and educators, and ship features that move retention, learning outcomes, and revenue—not just press releases.</p>
+      <div class="hero-meta reveal reveal-4">
+        <span class="hero-meta-item">K–12 · Higher Ed · L&amp;D · Test Prep</span>
+        <span class="hero-meta-item">Pre-seed → Series B</span>
+      </div>
+    </div>
+  </section>
 
-    <!-- What I do -->
-    <section id="what-i-do" class="section section-light">
-        <div class="container">
-            <div class="content-block">
-                <h2>What I do</h2>
-                <p>
-                    I help startups move from “we should use AI” to measurable business impact. 
-                    Most teams either overbuild too early or ship demos that never translate into revenue. 
-                    I focus on identifying the right use cases, validating product-market fit, and building scalable AI systems that support real growth.
-                </p>
+  <section id="what" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-number">§ 01</div>
+        <h2>What I <em>do</em></h2>
+      </div>
+      <div class="content-block">
+        <p>EdTech is uniquely hard for AI. A demo can wow an investor in twelve seconds and still fail a sixth-grader on Tuesday morning. The market is flooded with AI tutors that hallucinate, AI graders teachers don't trust, and AI content nobody finishes.</p>
+        <p>I help founders cut through that noise. <strong>I work alongside your team to identify AI use cases that learners and educators actually adopt, validate them before you over-build, and scale the ones that earn their place in the workflow.</strong></p>
+        <p>The work concentrates on three things:</p>
+        <ol class="numbered-list">
+          <li>Identify defensible AI use cases tied to learning outcomes, teacher time saved, and unit economics—not engagement vanity metrics.</li>
+          <li>Validate with real classrooms, learners, or L&amp;D buyers before pouring engineering into the wrong feature.</li>
+          <li>Build evaluation frameworks that include pedagogical efficacy, hallucination tolerance, age-appropriate safety, and cost-per-learner.</li>
+        </ol>
+        <blockquote>An early-stage K–12 platform wanted an "AI tutor" to differentiate. We instead found teachers were burning four-plus hours weekly generating differentiated practice. We shipped a narrow teacher copilot, validated it across eight schools, and within 90 days teacher weekly-active doubled and three districts expanded mid-contract.</blockquote>
+      </div>
+    </div>
+  </section>
 
-                <p>I design AI product systems that do three things:</p>
-                <ol class="numbered-list">
-                    <li>Identify high-value, defensible AI use cases tied directly to customer pain and business economics</li>
-                    <li>Rapidly validate demand and usage signals before over-investing in engineering</li>
-                    <li>Scale MVPs into production-grade systems with the right data, feedback loops, and governance</li>
-                </ol>
+  <section id="who" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-number">§ 02</div>
+        <h2>Who I <em>help</em></h2>
+      </div>
+      <div class="content-block">
+        <p>I work with founders, CEOs, and product leaders at early and growth-stage EdTech startups—K–12, higher ed, workforce learning, corporate L&amp;D, and test prep.</p>
+        <p>I'm most valuable when:</p>
+        <ul class="bullet-list">
+          <li>You have strong engineering capability but unclear conviction on what to build for teachers, students, or L&amp;D buyers.</li>
+          <li>You shipped an AI feature and learners came back for week one—but not week three.</li>
+          <li>You're preparing for a fundraise and need an AI roadmap that survives "but you're just a wrapper" diligence.</li>
+          <li>You need structure around evaluation: pedagogical efficacy, hallucination risk, FERPA/COPPA posture, and cost per active learner.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-                <p>
-                    I treat use case discovery, PMF validation, and technical scaling as one connected system. 
-                    When aligned, your AI becomes a durable advantage instead of a feature experiment.
-                </p>
+  <section id="when" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-number">§ 03</div>
+        <h2>When to <em>call</em></h2>
+      </div>
+      <div class="content-block">
+        <p>EdTech AI is moving faster than school procurement cycles. Speed without clarity creates expensive product debt. Reach out when momentum feels high but outcomes feel uncertain.</p>
+        <ul class="bullet-list">
+          <li>You're juggling multiple AI ideas—tutor, content gen, grading, analytics—without a prioritization framework.</li>
+          <li>The MVP works in a demo, but teachers don't reach for it on a Tuesday morning.</li>
+          <li>LLM costs are climbing with usage but not with revenue, and unit economics are getting fuzzy.</li>
+          <li>Product, engineering, and GTM disagree on what "AI success" means—engagement? grades? retention?</li>
+          <li>Your differentiation is "we use AI"—and so is every pitch deck in your category.</li>
+          <li>FERPA, COPPA, district procurement, or academic-integrity concerns are slowing deals you thought were closed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-                <blockquote>
-                    Example: An early-stage B2B SaaS company wanted to “add AI” to increase differentiation. 
-                    Instead of building a generic assistant, we identified a workflow bottleneck costing customers hours per week. 
-                    We prototyped a focused AI workflow tool, validated usage with 12 pilot customers, and shipped a narrow MVP. 
-                    Within 90 days, activation increased 28% and expansion revenue improved across early cohorts.
-                </blockquote>
-            </div>
-        </div>
-    </section>
+  <section id="how" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-number">§ 04</div>
+        <h2>How I <em>work</em></h2>
+      </div>
+      <div class="content-block">
+        <p>Hypothesis-driven. Evidence-based. Built around what actually changes behavior in classrooms and learning workflows—not what plays well on stage.</p>
+        <ol class="numbered-list">
+          <li><strong>Diagnostic.</strong> Audit current use cases, data readiness (including student-data privacy), educator and learner workflows, and unit economics.</li>
+          <li><strong>Prioritization.</strong> Identify one or two high-leverage AI bets tied to measurable outcomes—learning gains, teacher time saved, completion, or expansion revenue.</li>
+          <li><strong>MVP design.</strong> Define narrow scope, success metrics, an evaluation framework that includes pedagogical efficacy, and a rollout plan that respects educator trust.</li>
+          <li><strong>Scale.</strong> Implement feedback loops, cost controls, observability, safety review, and roadmap sequencing as you move from pilot to production.</li>
+        </ol>
+        <p>I work alongside your team. I do not replace it. The goal is to leave you with durable systems and sharper conviction—not dependency.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Who I help -->
-    <section id="who-i-help" class="section section-white">
-        <div class="container">
-            <div class="content-block">
-                <h2>Who I help</h2>
-                <p>
-                    I work with founders, CEOs, and product leaders at early and growth-stage startups building AI-native or AI-enabled products.
-                </p>
-                <p>
-                    I’m most valuable when:
-                </p>
-                <ul class="bullet-list">
-                    <li>You have strong technical capability but unclear product direction</li>
-                    <li>You’ve shipped an AI feature but don’t see sustained usage</li>
-                    <li>You’re preparing for a fundraise and need a credible AI roadmap</li>
-                    <li>You need structure around experimentation, evaluation, and iteration</li>
-                </ul>
-                <p>
-                    If your team is already investing in AI engineering, the leverage from disciplined product thinking is significant.
-                </p>
-            </div>
-        </div>
-    </section>
+  <section id="me" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-number">§ 05</div>
+        <h2>Who I <em>am</em></h2>
+      </div>
+      <div class="content-block">
+        <p>I'm Ann Andrews. I've spent 20+ years building and scaling digital products across startups and enterprise environments, leading cross-functional teams, and translating complex technology into business outcomes.</p>
+        <p>My focus today is helping EdTech founders build AI products that are <strong>economically sound, technically feasible, pedagogically credible, and aligned with what learners and educators actually need.</strong></p>
+      </div>
+    </div>
+  </section>
 
-    <!-- When to call me -->
-    <section id="when-to-call-me" class="section section-light">
-        <div class="container">
-            <div class="content-block">
-                <h2>When to call me</h2>
-                <p>
-                    AI markets move quickly. Speed without clarity creates waste. 
-                    Reach out if momentum feels high but outcomes feel uncertain.
-                </p>
-                <p><strong>Common signals:</strong></p>
-                <ul class="bullet-list">
-                    <li>You’re experimenting with multiple AI ideas but lack prioritization discipline.</li>
-                    <li>Your MVP works technically but customers don’t engage deeply.</li>
-                    <li>Model costs are rising without proportional revenue impact.</li>
-                    <li>Product, engineering, and GTM are misaligned on what “AI success” means.</li>
-                    <li>You’re unsure whether your differentiation is defensible or replicable.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- How I work -->
-    <section id="how-i-work" class="section section-white">
-        <div class="container">
-            <div class="content-block">
-                <h2>How I work</h2>
-                <p>
-                    My work is hypothesis-driven, evidence-based, and execution-focused. 
-                    I combine AI capability understanding with rigorous product discipline.
-                </p>
-                <p>
-                    Typical engagement structure:
-                </p>
-                <ol class="numbered-list">
-                    <li><strong>Diagnostic:</strong> Audit use cases, data readiness, customer workflows, and economics</li>
-                    <li><strong>Prioritization:</strong> Identify 1–2 high-leverage AI opportunities tied to measurable outcomes</li>
-                    <li><strong>MVP Design:</strong> Define narrow scope, success metrics, evaluation framework, and rollout plan</li>
-                    <li><strong>Scale:</strong> Implement feedback loops, cost controls, observability, and roadmap sequencing</li>
-                </ol>
-                <p>
-                    I work alongside your team. I do not replace it. 
-                    The goal is to leave you with durable systems, not dependency.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Who I am -->
-    <section id="who-i-am" class="section section-light">
-        <div class="container">
-            <div class="content-block">
-                <h2>Who I am</h2>
-                <p>
-                    I’m Ann Andrews, an AI and product leader with 20+ years of experience across startups and enterprise environments. 
-                    I’ve built and scaled digital products, led cross-functional teams, and translated complex technology into business outcomes.
-                </p>
-                <p>
-                    My focus today is helping startups build AI products that are economically sound, technically feasible, and aligned with real customer demand.
-                </p>
-                <p>
-                    If you're exploring or scaling an AI product and want clarity, discipline, and momentum, email me to schedule a 15-minute introductory call.
-                </p>
-            </div>
-        </div>
-    </section>
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ship AI that <em>earns its place</em> in the classroom.</h2>
+      <p>If you're building or scaling an EdTech AI product and want clarity, discipline, and momentum, let's talk. A 15-minute call is enough to know whether there's a fit.</p>
+      <div class="cta-actions">
+        <a href="https://calendly.com/ann-andrews" target="_blank" rel="noopener" class="btn btn-light">Book 15 min with me →</a>
+        <a href="mailto:ann.andrews@gmail.com" class="btn-link">Or email me</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
-    <div class="container">
-        <p style="margin: 0; font-size: 0.9rem;">&copy; 2026 Andrews AI Advisory. All rights reserved.</p>
-    </div>
+  <div class="container">
+    <p>© 2026 Andrews AI Advisory · Built for EdTech founders.</p>
+  </div>
 </footer>
 
 </body>
