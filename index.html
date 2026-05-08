@@ -454,6 +454,10 @@
 
   .form-success { display: none; padding: 1rem 0 0.5rem; }
   .form-success.is-visible { display: block; }
+  .modal.is-submitted .modal-eyebrow,
+  .modal.is-submitted h3,
+  .modal.is-submitted .modal-intro,
+  .modal.is-submitted form { display: none; }
   .form-success h4 {
     font-family: var(--serif);
     font-size: 1.5rem;
@@ -672,7 +676,7 @@
 
     <form id="contactForm" novalidate>
       <!-- Replace with your Web3Forms access key from https://web3forms.com -->
-      <input type="hidden" name="access_key" value="a67f40d1-9559-49d6-912e-56ec62eadb89">
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
       <input type="hidden" name="subject" value="New inquiry from Andrews AI Advisory">
       <input type="hidden" name="from_name" value="Andrews AI Advisory site">
       <!-- Honeypot for spam filtering -->
@@ -712,6 +716,7 @@
 <script>
 (function() {
   const modal = document.getElementById('emailModal');
+  const innerModal = modal.querySelector('.modal');
   const form = document.getElementById('contactForm');
   const successBox = document.getElementById('formSuccess');
   const errorBox = document.getElementById('formError');
@@ -728,10 +733,22 @@
     }, 220);
   }
 
+  function resetForm() {
+    innerModal.classList.remove('is-submitted');
+    successBox.classList.remove('is-visible');
+    form.style.display = '';
+    errorBox.classList.remove('is-visible');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send';
+    form.reset();
+  }
+
   function closeModal() {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // Reset after the close animation finishes
+    setTimeout(resetForm, 350);
   }
 
   document.querySelectorAll('[data-open-email]').forEach(function(el) {
@@ -763,7 +780,7 @@
       });
       const data = await response.json();
       if (data.success) {
-        form.style.display = 'none';
+        innerModal.classList.add('is-submitted');
         successBox.classList.add('is-visible');
       } else {
         throw new Error(data.message || 'Submission failed');
