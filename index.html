@@ -292,13 +292,194 @@
     font-size: 0.9rem;
     color: rgba(244, 238, 226, 0.7);
     text-decoration: none;
+    background: none;
+    border: none;
     border-bottom: 1px solid rgba(244, 238, 226, 0.3);
-    padding-bottom: 2px;
+    padding: 0 0 2px 0;
+    cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
   }
   .btn-link:hover {
     color: var(--accent-soft);
     border-color: var(--accent-soft);
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 20, 16, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .modal-backdrop.is-open {
+    display: flex;
+    opacity: 1;
+  }
+  .modal {
+    background: var(--bg);
+    max-width: 540px;
+    width: 100%;
+    padding: 2.8rem 2.5rem 2.2rem;
+    position: relative;
+    border: 1px solid var(--rule);
+    box-shadow: 0 30px 80px rgba(26, 20, 16, 0.25);
+    transform: translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-backdrop.is-open .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 0.9rem;
+    right: 1.1rem;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--ink-mute);
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--accent); }
+
+  .modal-eyebrow {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+  .modal h3 {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .modal h3 em { font-style: italic; color: var(--accent); }
+  .modal-intro {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.8rem;
+    line-height: 1.55;
+  }
+
+  .form-field { margin-bottom: 1.1rem; }
+  .form-field label {
+    display: block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+    margin-bottom: 0.45rem;
+    font-weight: 500;
+  }
+  .form-field label .optional {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink-mute);
+    font-weight: 400;
+    margin-left: 0.3rem;
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .form-field textarea {
+    min-height: 90px;
+    resize: vertical;
+    font-family: var(--sans);
+    line-height: 1.5;
+  }
+
+  .modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.6rem;
+  }
+  .btn-submit {
+    background: var(--ink);
+    color: var(--bg);
+    border: 1px solid var(--ink);
+    padding: 0.85rem 1.7rem;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .modal .btn-cancel {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .modal .btn-cancel:hover { color: var(--accent); }
+
+  .form-success { display: none; padding: 1rem 0 0.5rem; }
+  .form-success.is-visible { display: block; }
+  .form-success h4 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+  }
+  .form-success p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .form-success a { color: var(--accent); }
+
+  .form-error {
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-top: 0.9rem;
+    display: none;
+  }
+  .form-error.is-visible { display: block; }
+
+  @media (max-width: 540px) {
+    .modal { padding: 2.2rem 1.5rem 1.7rem; }
+    .modal h3 { font-size: 1.55rem; }
   }
 
   /* Footer */
@@ -469,7 +650,7 @@
       <p>If you're exploring or scaling an EdTech AI product and want clarity, discipline, and momentum, book a 15-minute introductory call.</p>
       <div class="cta-actions">
         <a href="https://calendly.com/ann-andrews" target="_blank" rel="noopener" class="btn btn-light">Book 15 min with me</a>
-        <a href="mailto:ann.andrews@gmail.com" class="btn-link">Or email me</a>
+        <button type="button" class="btn-link" data-open-email>Or email me</button>
       </div>
     </div>
   </section>
@@ -480,6 +661,121 @@
     <p>© 2026 Andrews AI Advisory. All rights reserved.</p>
   </div>
 </footer>
+
+<!-- Email modal -->
+<div class="modal-backdrop" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" aria-hidden="true">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Close" data-close>&times;</button>
+    <div class="modal-eyebrow">Send a note</div>
+    <h3 id="emailModalTitle">Tell me about your <em>project</em>.</h3>
+    <p class="modal-intro">A few quick details so I can come prepared. I reply within 2 business days.</p>
+
+    <form id="contactForm" novalidate>
+      <!-- Replace with your Web3Forms access key from https://web3forms.com -->
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+      <input type="hidden" name="subject" value="New inquiry from Andrews AI Advisory">
+      <input type="hidden" name="from_name" value="Andrews AI Advisory site">
+      <!-- Honeypot for spam filtering -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="form-field">
+        <label for="f-name">Name</label>
+        <input type="text" id="f-name" name="name" required autocomplete="name">
+      </div>
+      <div class="form-field">
+        <label for="f-email">Email</label>
+        <input type="email" id="f-email" name="email" required autocomplete="email">
+      </div>
+      <div class="form-field">
+        <label for="f-company">Company &amp; stage <span class="optional">(optional)</span></label>
+        <input type="text" id="f-company" name="company" placeholder="e.g. Acme Learning, Seed">
+      </div>
+      <div class="form-field">
+        <label for="f-message">What are you working on?</label>
+        <textarea id="f-message" name="message" required></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-submit" id="submitBtn">Send</button>
+        <button type="button" class="btn-cancel" data-close>Cancel</button>
+      </div>
+      <div class="form-error" id="formError">Something went wrong. Please email ann.andrews@gmail.com directly.</div>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <h4>Thanks for reaching out.</h4>
+      <p>I'll be in touch within 2 business days. If you'd rather book a time directly, you can do that <a href="https://calendly.com/ann-andrews" target="_blank" rel="noopener">on my calendar</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const modal = document.getElementById('emailModal');
+  const form = document.getElementById('contactForm');
+  const successBox = document.getElementById('formSuccess');
+  const errorBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      const first = document.getElementById('f-name');
+      if (first) first.focus();
+    }, 220);
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-email]').forEach(function(el) {
+    el.addEventListener('click', openModal);
+  });
+  document.querySelectorAll('[data-close]').forEach(function(el) {
+    el.addEventListener('click', closeModal);
+  });
+
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    errorBox.classList.remove('is-visible');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        form.style.display = 'none';
+        successBox.classList.add('is-visible');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      errorBox.classList.add('is-visible');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send';
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
