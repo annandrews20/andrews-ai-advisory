@@ -703,7 +703,7 @@
         <button type="submit" class="btn-submit" id="submitBtn">Send</button>
         <button type="button" class="btn-cancel" data-close>Cancel</button>
       </div>
-      <div class="form-error" id="formError">Something is not quite right. Please email ann.andrews@gmail.com directly.</div>
+      <div class="form-error" id="formError">Something went wrong. Please email ann.andrews@gmail.com directly.</div>
     </form>
 
     <div class="form-success" id="formSuccess">
@@ -779,6 +779,7 @@
         body: formData
       });
       const data = await response.json();
+      console.log('Web3Forms response:', data);
       if (data.success) {
         innerModal.classList.add('is-submitted');
         successBox.classList.add('is-visible');
@@ -786,6 +787,8 @@
         throw new Error(data.message || 'Submission failed');
       }
     } catch (err) {
+      console.error('Form submission error:', err);
+      errorBox.textContent = 'Error: ' + (err.message || 'Unknown error') + '. Email ann.andrews@gmail.com directly.';
       errorBox.classList.add('is-visible');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send';
